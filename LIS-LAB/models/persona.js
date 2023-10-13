@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     ciudad_nac: DataTypes.STRING,
     pais_nac: DataTypes.STRING,
     embarazada: DataTypes.BOOLEAN,
-    pre_diagnostico: DataTypes.STRING,
     patolog_prev: DataTypes.STRING,
     tipo_usuario: DataTypes.STRING,
     mail: DataTypes.STRING,

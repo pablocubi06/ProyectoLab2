@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ValorRef.init({
     codigo: DataTypes.INTEGER,
+    codigo_determ: DataTypes.INTEGER,
     nombreRef: DataTypes.STRING,
     valorMin: DataTypes.STRING,
     valorMax: DataTypes.STRING
