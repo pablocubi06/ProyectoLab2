@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Resultado.init({
-    fecha: DataTypes.DATE,
+  DetalleOrden.init({
+    codigo: DataTypes.INTEGER,
+    codigoOrden: DataTypes.INTEGER,
     codigoExamen: DataTypes.INTEGER,
+    codigoDeterm: DataTypes.INTEGER,
     resultado: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Resultado',
+    modelName: 'DetalleOrden',
   });
-  return Resultado;
+  return DetalleOrden;
 };
