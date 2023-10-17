@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title Carga de Pacientes
+  body
+    h1 Carga de Pacientes
+
+    form(action="/guardar-edicion", method="post")
+      label(for="dni") DNI:
+      input(type="text", name="dni", value=paciente.dni, required)
+
+      label(for="apellido") Apellido:
+      input(type="text", name="apellido", value= paciente.apellido, required)
+
+      label(for="nombre") Nombre:
+      input(type="text", name="nombre", value= paciente.nombre, required)
+
+      label(for="sexo") Sexo:
+       input(type="text", name="sexo", value= paciente.sexo, required)
+
+      label(for="fecha_nac") Fecha de Nacimiento:
+      input(type="date", name="fecha_nac",  value= paciente.fecha_nac, required)
+
+      label(for="ciudad_nac") Ciudad de Nacimiento:
+      input(type="text", name="ciudad_nac",value= paciente.ciudad_nac, required)
+
+      label(for="pais_nac") País de Nacimiento:
+      input(type="text", name="pais_nac",value= paciente.pais_nac, required)
+
+      label(for="embarazada") Embarazada:
+      input(type="checkbox", name="embarazada" value= paciente.embarazada)
+
+      label(for="pre_diagnostico") Pre-diagnóstico:
+      input(type="text", name="pre_diagnostico" , value= paciente.pre_diagnostico)
+
+      label(for="patolog_prev") Patología Previa:
+      input(type="text", name="patolog_prev",value= paciente.patolog_prev)
+
+      label(for="email") Correo Electrónico:
+      input(type="email", name="email", value= paciente.email)
+
+      label(for="telefono") Teléfono:
+      input(type="tel", name="telefono",value= paciente.telefono)
+
+      button(type="submit") Cargar Paciente
