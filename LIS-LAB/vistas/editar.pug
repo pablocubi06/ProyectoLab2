@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    link(rel="stylesheet", href="/css/style.css")
     title Carga de Pacientes
   body
     h1 Carga de Pacientes
@@ -40,6 +41,6 @@ html
       input(type="email", name="email", value= paciente.email)
 
       label(for="telefono") Teléfono:
-      input(type="tel", name="telefono",value= paciente.telefono)
+      input(type="text", name="telefono",value= paciente.telefono)
 
       button(type="submit") Cargar Paciente

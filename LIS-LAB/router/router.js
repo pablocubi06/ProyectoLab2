@@ -7,10 +7,15 @@ import { render } from 'pug';
 
 
 app.set('view engine', 'pug');
-app.set('views','../vistas');
-app.use(express.urlencoded({ extended: true }));
+app.set('views','./vistas');
 
-app.get('/',  (req, res) => {
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+app.get('/',(req,res)=>{
+  res.render('index')
+})
+app.get('/orden',  (req, res) => {
         res.render('orden');
           });
 app.get('/cargarPaciente',(req,res)=>{

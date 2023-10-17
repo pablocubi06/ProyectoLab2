@@ -53,20 +53,7 @@ console.log(sequelize);
         allowNull:false
       }
     },
-     {
-    dni: DataTypes.STRING,
-    apellido: DataTypes.STRING,
-    nombre: DataTypes.STRING,
-    sexo: DataTypes.STRING,
-    fecha_nac: DataTypes.DATE,
-    ciudad_nac: DataTypes.STRING,
-    pais_nac: DataTypes.STRING,
-    embarazada: DataTypes.BOOLEAN,
-    patolog_prev: DataTypes.STRING,
-    tipo_usuario: DataTypes.STRING,
-    mail: DataTypes.STRING,
-    telefono: DataTypes.STRING
-  }, {
+      {
     sequelize,
    
   });
