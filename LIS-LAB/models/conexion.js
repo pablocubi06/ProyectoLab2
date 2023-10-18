@@ -7,7 +7,7 @@ const sequelize = new Sequelize('lab2','root','',{
 
 sequelize.authenticate()
 .then(()=>{
-    console.log('coenctado')
+    console.log('conectado')
 })
 .catch(err=>{
     console.log(' No Conectado');

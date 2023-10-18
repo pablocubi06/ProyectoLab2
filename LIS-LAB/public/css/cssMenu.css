@@ -1,0 +1,11 @@
+body{
+    background: url(/images/bioquimica-1920x1280.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: aliceblue;
+    align-items: center;
+}
+.list-group-item a {
+    text-decoration: none;
+  }
