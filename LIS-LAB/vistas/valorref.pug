@@ -1,0 +1,41 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="/public/css/fondoCont.css")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC", crossorigin="anonymous")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+  header
+    h3.text-center VALORES DE REFERENCIA
+  body(background="/images/bioquimica-1920x1280.jpg")
+    .row
+      .col-5
+        form.d-flex.container
+          input.form-control.me-2(type="search", placeholder="Search", aria-label="Search")
+          button.btn.btn-outline-info(type="submit") Search
+      .col-5
+        figure.text-center
+          blockquote.blockquote
+            h5 VALORES DE REFERENCIA.
+          figcaption.blockquote-footer
+            AGREGAR NUEVA REFERENCIA A UNA DETERMINACIÓN
+        .fondo.container
+          form.row.g-3
+            .col-md-12
+              label.form-label(for="inputState") Determinación
+              select#inputState.form-select
+                option(selected) Elige una determinación
+                option
+            .col-12
+              label.form-label(for="inputAddress") Nombre de referencia
+              input(type="text", class="form-control", id="inputAddress", placeholder="Ejemplo: hombres, mujeres, embarazadas")
+            .col-md-6
+              label.form-label(for="inputEmail4") Valor mínimo
+              input(type="text", class="form-control", id="inputEmail4")
+            .col-md-6
+              label.form-label(for="inputPassword4") Valor máximo
+              input(type="text", class="form-control", id="inputPassword4")
+            .col-12
+              button(type="submit", class="btn btn-info") Enviar
+            .col-12
+              button(type="submit", class="btn btn-info") Volver al menú principal
