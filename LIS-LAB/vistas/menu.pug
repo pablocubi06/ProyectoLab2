@@ -7,17 +7,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title menu
   body(background="/images/bioquimica-1920x1280.jpg")
-    .card(style="width: 18rem;")
-      .card-header PACIENTES
-      ul.list-group.list-group-flush
-        li.list-group-item
-          a(href="cargarPaciente") Nuevo paciente
-        li.list-group-item
-          a(href="/editar/34877193?") Editar paciente
-        li.list-group-item
-          a(href="/orden") Enlazar eliminar paciente
-        li.list-group-item
-          a(href="/orden") Enlazar listar pacientes
+    
     .card(style="width: 18rem;")
       .card-header ORDENES
       ul.list-group.list-group-flush
@@ -42,3 +32,13 @@ html(lang="en")
           a(href="/orden") Enlazar eliminar resultado
         li.list-group-item
           a(href="/orden") Enlazar listar resultado
+    .card(style="width: 18rem;")
+      .card-header EXAMENES
+      ul.list-group.list-group-flush
+        li.list-group-item
+          a(href="/examen") examenes
+        li.list-group-item
+          a(href="/determinaciones") Determinaciones
+        li.list-group-item
+          a(href="/valoresDeReferencia") Enlazar Valores de referencia
+        

@@ -20,7 +20,7 @@ html(lang="en")
           figcaption.blockquote-footer
             AGREGAR NUEVA REFERENCIA A UNA DETERMINACIÓN
         .fondo.container
-          form.row.g-3
+          form.row.g-3(action="/cargar-valor", method="post")
             .col-md-12
               label.form-label(for="inputState") Determinación
               select#inputState.form-select
@@ -38,4 +38,4 @@ html(lang="en")
             .col-12
               button(type="submit", class="btn btn-info") Enviar
             .col-12
-              button(type="submit", class="btn btn-info") Volver al menú principal
+             button(type="submit" class="btn btn-info", action="/" method="get") Volver al menú
