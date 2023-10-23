@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2023 a las 03:42:46
+-- Tiempo de generación: 23-10-2023 a las 23:13:50
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,24 +65,26 @@ INSERT INTO `determinaciones` (`codigo`, `cod_examen`, `nombre-determ`, `unidad_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `examenes`
+-- Estructura de tabla para la tabla `examens`
 --
 
-CREATE TABLE `examenes` (
+CREATE TABLE `examens` (
   `codigo` int(11) NOT NULL,
   `nombre_analisis` varchar(30) NOT NULL,
   `tipo_muestra` varchar(11) NOT NULL,
   `dias_demora` int(3) NOT NULL,
-  `nota` varchar(50) NOT NULL
+  `nota` varchar(50) NOT NULL,
+  `createAt` date DEFAULT NULL,
+  `updateAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `examenes`
+-- Volcado de datos para la tabla `examens`
 --
 
-INSERT INTO `examenes` (`codigo`, `nombre_analisis`, `tipo_muestra`, `dias_demora`, `nota`) VALUES
-(1, 'HEMOGRAMA', 'SANGRE', 2, ''),
-(2, 'HEPATOGRAMA', 'SANGRE', 2, '');
+INSERT INTO `examens` (`codigo`, `nombre_analisis`, `tipo_muestra`, `dias_demora`, `nota`, `createAt`, `updateAt`) VALUES
+(1, 'HEMOGRAMA', 'SANGRE', 2, '', NULL, NULL),
+(2, 'HEPATOGRAMA', 'SANGRE', 2, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -135,8 +137,11 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`dni`, `apellido`, `nombre`, `sexo`, `fecha_nac`, `ciudad_nac`, `pais_nac`, `embarazada`, `pre_diagnostico`, `patolog_prev`, `tipo_usuario`, `email`, `telefono`, `createdAt`, `updatedAt`) VALUES
-('34877193', 'Cubillos', 'Pablo', 'm', '1989-02-11', 'San Luis', 'Argentina', 0, 'Dolor de rodillas', 'ninguna', 'paciente', '', 2147483647, '2023-10-17', '2023-10-17'),
-('40123456', 'Sosa', 'Sofia', 'F', '1995-10-10', 'San Luis', 'Uruguay', 0, 'Aparente embarazo', 'no', 'Paciente', 'sofi@gmail.com', 2147483647, NULL, '2023-10-17');
+('315428913', 'SOAZO', 'NATALIA', 'f', '1985-11-18', 'Sa', 'Argentina', 0, 'Control anual', 'No', 'paciente', 'natalia@gmail.com', 2147483647, '2023-10-19', '2023-10-19'),
+('31542898', 'Sosa', 'Javier', 'm', '1982-07-18', 'San Luis', 'Argentina', 0, 'Problemas digestivos', 'No', 'paciente', 'diego@gmail.com', 2147483647, '2023-10-19', '2023-10-19'),
+('34877193', 'Cubillos', 'Pablo', 'm', '1989-02-11', 'San Luis', 'Argentina', 0, 'Dolor de rodillas', 'ninguna', 'paciente', '', 2147483647, '2023-10-17', '2023-10-19'),
+('40123456', 'Sosa', 'Sofia', 'F', '1995-10-10', 'San Luis', 'Uruguay', 0, 'Aparente embarazo', 'no', 'Paciente', 'sofi@gmail.com', 2147483647, NULL, '2023-10-18'),
+('54159878', 'GOMEZ', 'VICTORIA', 'f', '2017-06-18', 'SANLUIS', 'ARGENTINA', 0, 'MOLESTIAS', 'NO', 'paciente', 'no@gmail.com', 2147483647, '2023-10-20', '2023-10-20');
 
 -- --------------------------------------------------------
 
@@ -201,9 +206,9 @@ ALTER TABLE `determinaciones`
   ADD KEY `cod_examen` (`cod_examen`);
 
 --
--- Indices de la tabla `examenes`
+-- Indices de la tabla `examens`
 --
-ALTER TABLE `examenes`
+ALTER TABLE `examens`
   ADD PRIMARY KEY (`codigo`);
 
 --
@@ -244,9 +249,9 @@ ALTER TABLE `detalles_orden`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `examenes`
+-- AUTO_INCREMENT de la tabla `examens`
 --
-ALTER TABLE `examenes`
+ALTER TABLE `examens`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -263,7 +268,7 @@ ALTER TABLE `valor_ref`
 -- Filtros para la tabla `detalles_orden`
 --
 ALTER TABLE `detalles_orden`
-  ADD CONSTRAINT `detalles_orden_ibfk_1` FOREIGN KEY (`codigoExamen`) REFERENCES `examenes` (`codigo`),
+  ADD CONSTRAINT `detalles_orden_ibfk_1` FOREIGN KEY (`codigoExamen`) REFERENCES `examens` (`codigo`),
   ADD CONSTRAINT `detalles_orden_ibfk_2` FOREIGN KEY (`cod-determ`) REFERENCES `determinaciones` (`codigo`),
   ADD CONSTRAINT `detalles_orden_ibfk_3` FOREIGN KEY (`codigoOrden`) REFERENCES `ordenes` (`codigo`);
 
@@ -271,7 +276,7 @@ ALTER TABLE `detalles_orden`
 -- Filtros para la tabla `determinaciones`
 --
 ALTER TABLE `determinaciones`
-  ADD CONSTRAINT `determinaciones_ibfk_1` FOREIGN KEY (`cod_examen`) REFERENCES `examenes` (`codigo`);
+  ADD CONSTRAINT `determinaciones_ibfk_1` FOREIGN KEY (`cod_examen`) REFERENCES `examens` (`codigo`);
 
 --
 -- Filtros para la tabla `ordenes`
