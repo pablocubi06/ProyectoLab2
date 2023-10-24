@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Document
+  body
+    .row
+       .col-4 
+       .col-4 
+        figure.text-center
+          blockquote
+            h3 EXÁMENES.
+          blockquote
+          figcaption.blockquote-footer EDITAR<cite title="Source Title">EXÁMEN</cite>
+        figure
+        form.row.g-3(action="/editar-examen", method="post")
+          .col-4
+            label(for="inputAddress" class="form-label") Código
+            input(type="text" class="form-control" name="codigo" value= examen.codigo)
+          .col-8
+            label(for="inputAddress" class="form-label") Nombre análisis
+            input(type="text" class="form-control" name="nombre_analisis" value= examen.nombre_analisis)
+          .col-md-6
+            label(for="inputState" class="form-label") Tipo de Muestra
+            select(id="inputState" class="form-select" name="tipo_muestra" value= examen.tipo_muestra)
+              option() Elige
+              option(value="heces") HECES
+              option(value="mucosa") MUCOSA
+              option(value="orina") ORINA
+              option(value="sangre") SANGRE
+          .col-md-6
+            label(for="inputEmail4" class="form-label") Dias de demora
+            input(type="number" class="form-control" name="dias_demora" value= examen.dias_demora)
+          .col-md-12
+            label(for="inputAdress" class="form-label") Anotaciones
+            input(type="text" class="form-control" name="nota" value=examen.nota)
+          .col-12
+            button(type="submit" class="btn btn-info") Enviar
+          .col-12
+            button(type="submit" class="btn btn-info") Volver al menú  

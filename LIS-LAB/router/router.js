@@ -104,8 +104,10 @@ app.post('/buscar-examen', async (req, res) => {
   const {valor} = req.body;
   let examenes = [];
   examenes = await Examen.findAll({ where: { nombre_analisis: valor } });
-  res.render('examen', { examenes });
+  res.render('examen', {examenes});
+ 
 });
+
 app.get('/examen', (req, res) => {
   res.render('examen')
 });
@@ -128,18 +130,52 @@ app.post('/cargar-examen', async (req, res) => {
 
   } catch (error) {
 
-    console.error('Error al cargar paciente:', error);
+    console.error('Error al cargar examen:', error);
     res.redirect('/error'); // Página de error en caso de problemas
   }
 
 
 
 });
+app.get('/editar-examen/:codigo', async (req, res) => {
+  const codigoExamen = req.params.codigo;
+  console.log(codigoExamen)
+  const examen = await Examen.findByPk(codigoExamen);
+  //console.log(examen.nombre_analisis)
+  res.render('editarExamen', { examen });
 
+});
+app.post('/editar-examen', (req, res) => {
+  const codigo = req.body.codigo;
+  const nuevosDatos = {
+    nombre_analisis: req.body.nombre_analisis,
+    tipo_muestra: req.body.tipo_muestra,
+    dias_demora: req.body.dias_demora,
+    nota: req.body.nota
+  };
+    Examen.update(nuevosDatos, {
+    where: { codigo: codigo }
+  })
+    .then(() => {
+      res.render('examen'); // Redirige a la lista de pacientes o a donde desees
+    })
+    .catch(error => {
+      console.error('Error al actualizar el examen:', error);
 
-
-
-
+    });
+});
+app.get('/eliminar-examen/:codigo', async (req, res) => {
+      const codigoExamen = req.params.codigo;
+      const examen = await Examen.findByPk(codigoExamen);
+      //console.log(examen.nombre_analisis)
+      res.render('eliminarExamen', { examen });
+ });
+ app.post('/eliminar-examen', async(req, res) => {
+  res.render('examen', {
+    mensaje: ('Los datos se cargaron correctamente')
+  });
+  
+  });
 
 
 app.listen(3030, () => { console.log("corriendo") });
