@@ -2,37 +2,31 @@ doctype html
 html
   head
     link(rel="stylesheet", href="/css/style.css")
+    
     title Búsqueda de Paciente
   body
     h1 Búsqueda de Paciente
     form(action="/buscar", method="post")
-      select(name="criterio")
+      select(name="criterio" id="criterio")
         option(value="nombre") Nombre
         option(value="dni") DNI
         option(value="email") Correo Electrónico
-      input(type="text", name="valor", placeholder="Valor a buscar", required)
+      input(type="text", name="valor",id="valor", placeholder="Valor a buscar", required)
       button(type="submit") Buscar
 
   
-    - if (pacientes && pacientes.length > 0)
-      h2 Resultados de Búsqueda
-      table.table.table-bordered
-        thead
-          tr
-            th Nombre
-            th DNI
-            th Correo Electrónico
-            th Acción
-        tbody
-          each paciente in pacientes
-            tr
-              td #{paciente.nombre}
-              td #{paciente.dni}
-              td #{paciente.email}
-              td 
-                form(action=`/editar/${paciente.dni}`, method="get")
-                 button(type:'submit') Editar 
-    -else
-      h2 No se encontraron resultados
-      form(action="/cargarPaciente", method="get")
-        button(type:'submit') Agregar nuevo
+    
+    h2 Resultados de Búsqueda
+    table.table.table-bordered
+     thead
+        tr
+         th Nombre
+         th DNI
+         th Correo Electrónico
+         th Acción
+     tbody(id="resultados")
+         
+  
+    form(action="/cargarPaciente", method="get")
+      button(type:'submit') Agregar nuevo
+    script(src="/script/buscarPaciente.js")

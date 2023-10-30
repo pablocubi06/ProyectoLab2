@@ -17,7 +17,10 @@ html
       input(type="text", name="nombre", value= paciente.nombre, required)
 
       label(for="sexo") Sexo:
-       input(type="text", name="sexo", value= paciente.sexo, required)
+      select(name="sexo")
+        option(value="masculino") Masculino
+        option(value="femenino") Femenino
+
 
       label(for="fecha_nac") Fecha de Nacimiento:
       input(type="date", name="fecha_nac",  value= paciente.fecha_nac, required)

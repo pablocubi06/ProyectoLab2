@@ -8,7 +8,8 @@ console.log(sequelize);
       codigo:{
         type:DataTypes.INTEGER,
         allowNull:true,
-        primaryKey:true
+        primaryKey:true,
+        autoIncrement: true
       },
       
       nombre_analisis: {

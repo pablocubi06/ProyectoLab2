@@ -25,14 +25,31 @@ app.get('/cargarPaciente', (req, res) => {
 
 app.get('/editar/:id', async (req, res) => {
   const pacienteId = req.params.id;
-  console.log(pacienteId)
   const paciente = await Persona.findByPk(pacienteId);
-  console.log(paciente.nombre)
   res.render('editar', { paciente });
 
 });
 
-app.post('/buscar', async (req, res) => {
+app.get('/nuevaOrden/:id', async (req, res) => {
+  const pacienteId = req.params.id;
+  const paciente = await Persona.findByPk(pacienteId);
+  res.render('nuevaOrden');
+
+});
+
+app.get('/api/personas', async (req, res) => {
+  try {
+    const personas = await Persona.findAll(); // Esto asume que tienes un modelo "Persona"
+
+    res.json(personas); // Devuelve los resultados como JSON
+  } catch (error) {
+    console.error('Error al obtener datos de personas:', error);
+    res.status(500).json({ error: 'Error al obtener datos de personas' });
+  }
+});
+
+
+app.post('/buscar?criterio=${criterio}&valor=${valor}', async (req, res) => {
   const { criterio, valor } = req.body;
   let pacientes = [];
 
