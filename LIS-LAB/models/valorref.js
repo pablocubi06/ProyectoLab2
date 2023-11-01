@@ -1,27 +1,38 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class ValorRef extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+import { Model,DataTypes } from 'sequelize';
+import { sequelize } from './conexion.js';
+  class Valorref extends Model {
+  
   }
-  ValorRef.init({
-    codigo: DataTypes.INTEGER,
-    codigo_determ: DataTypes.INTEGER,
-    nombreRef: DataTypes.STRING,
-    valorMin: DataTypes.STRING,
-    valorMax: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'ValorRef',
-  });
-  return ValorRef;
-};
+  Valorref.init({
+    codigo:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      primaryKey:true,
+      autoIncrement: true
+    },
+
+    cod_determ:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      autoIncrement: false
+    },
+    
+    nombreRef: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    valorMin: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    valorMax: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  },
+      {
+      sequelize,
+      
+      
+});
+export{Valorref};

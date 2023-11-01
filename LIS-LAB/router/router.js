@@ -2,16 +2,20 @@ import express, { Router } from 'express';
 const router = Router();
 import { Persona } from '../models/persona.js';
 import { Examen } from '../models/examen.js';
+import { Determinacion } from '../models/determinacion.js';
+import { Valorref } from '../models/valorref.js';
 const app = express();
 import path from 'path';
 import { render } from 'pug';
-
 
 app.set('view engine', 'pug');
 app.set('views', './vistas');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+let determinaciones = [];
+determinaciones = Valorref.findAll();
 
 app.get('/', (req, res) => {
   res.render('menu')
@@ -126,10 +130,11 @@ app.post('/buscar-examen', async (req, res) => {
 });
 
 app.get('/examen', (req, res) => {
+
   res.render('examen')
 });
 app.get('/determinaciones', (req, res) => {
-  res.render('determinaciones')
+   res.render('determinaciones')
 });
 app.get('/valoresDeReferencia', (req, res) => {
 
@@ -141,9 +146,9 @@ app.post('/cargar-examen', async (req, res) => {
     await Examen.create({
       nombre_analisis, tipo_muestra, dias_demora, nota
     });
-    res.render('menu.html', {
-      mensaje: ('Los datos se cargaron correctamente')
-    });
+   
+    // Enviar respuesta al cliente en formato JSON
+      res.json({ message: '¡Nuevo dato cargado exitosamente!' });
 
   } catch (error) {
 
@@ -193,6 +198,46 @@ app.get('/eliminar-examen/:codigo', async (req, res) => {
   });
   
   });
+
+  // middleware para obtener los datos del examen
+const getExamenesData = (req, res, next) => {
+  // realizar la consulta a la base de datos
+  const examenes = Examamen.findAll();
+
+  // almacenar los datos del examen en la sesión
+  req.session.examenes = examenes;
+  next();
+};
+
+// app.get para renderizar la página
+app.get("/determinacion", getExamenesData, (req, res) => {
+  // obtener los datos del examen de la sesión
+  const examenes = req.session.examenes;
+
+  // renderizar la página con los datos del examen
+  res.render("determinacion", {examenes });
+  console.log(examenes)
+});
+
+app.get('/determinacion', async (req, res) => {
+  
+  let examenes = [];
+  examenes = await Examen.findAll();
+  res.render('examen', {examenes});
+  console.log(examenes);
+
+});
+app.post('/buscar-determinacion', async (req, res) => {
+  const {valor} = req.body;
+  let d = [];
+  d = await Determinacion.findAll({ where: { nombre_determ: valor } });
+  res.render('determinaciones', {d});
+ 
+});
+
+
+  
+  
 
 
 app.listen(3030, () => { console.log("corriendo") });

@@ -1,26 +1,34 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model,DataTypes } from 'sequelize';
+import { sequelize } from './conexion.js';
   class Determinacion extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+  
   }
   Determinacion.init({
-    codigo: DataTypes.INTEGER,
-    nDeterminacion: DataTypes.STRING,
-    unidMedida: DataTypes.STRING,
-    valorRef: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Determinacion',
-  });
-  return Determinacion;
-};
+    codigo:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      primaryKey:true,
+      autoIncrement: true
+    },
+
+    cod_examen:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      autoIncrement: false
+    },
+    
+    nombre_determ: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    unidad_medida: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  },
+      {
+      sequelize,
+      
+      
+});
+export{Determinacion};

@@ -5,7 +5,8 @@ body{
     height: 100vh;
     color: aliceblue;
     align-items: center;
+    text-decoration: none;
 }
-.list-group-item a {
+.list-group.list-group-flush{
     text-decoration: none;
   }
