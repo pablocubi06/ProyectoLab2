@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2023 a las 23:13:50
+-- Tiempo de generación: 02-11-2023 a las 21:45:13
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -24,43 +24,48 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalles_orden`
+-- Estructura de tabla para la tabla `detalles_ordens`
 --
 
-CREATE TABLE `detalles_orden` (
+CREATE TABLE `detalles_ordens` (
   `codigo` int(11) NOT NULL,
   `codigoOrden` varchar(20) NOT NULL,
   `codigoExamen` int(11) NOT NULL,
-  `cod-determ` int(11) NOT NULL,
-  `resultado` varchar(20) NOT NULL
+  `cod-determ` varchar(11) NOT NULL,
+  `resultado` varchar(20) NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `detalles_orden`
+-- Volcado de datos para la tabla `detalles_ordens`
 --
 
-INSERT INTO `detalles_orden` (`codigo`, `codigoOrden`, `codigoExamen`, `cod-determ`, `resultado`) VALUES
-(1, '40123456-2023-10-10', 1, 0, '13');
+INSERT INTO `detalles_ordens` (`codigo`, `codigoOrden`, `codigoExamen`, `cod-determ`, `resultado`, `createdAt`, `updatedAt`) VALUES
+(1, '40123456-2023-10-10', 1, '0', '13', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `determinaciones`
+-- Estructura de tabla para la tabla `determinacions`
 --
 
-CREATE TABLE `determinaciones` (
-  `codigo` int(11) NOT NULL,
+CREATE TABLE `determinacions` (
+  `codigo` varchar(11) NOT NULL,
   `cod_examen` int(11) NOT NULL,
-  `nombre-determ` varchar(20) NOT NULL,
-  `unidad_medida` varchar(10) NOT NULL
+  `nombre_comun` varchar(20) NOT NULL,
+  `nombre_cientifico` varchar(20) NOT NULL,
+  `unidad_medida` varchar(10) NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `determinaciones`
+-- Volcado de datos para la tabla `determinacions`
 --
 
-INSERT INTO `determinaciones` (`codigo`, `cod_examen`, `nombre-determ`, `unidad_medida`) VALUES
-(0, 1, 'hemoglobina', 'g)DL');
+INSERT INTO `determinacions` (`codigo`, `cod_examen`, `nombre_comun`, `nombre_cientifico`, `unidad_medida`, `createdAt`, `updatedAt`) VALUES
+('0', 1, 'hemoglobina', '', 'g)DL', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,24 +94,26 @@ INSERT INTO `examens` (`codigo`, `nombre_analisis`, `tipo_muestra`, `dias_demora
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ordenes`
+-- Estructura de tabla para la tabla `ordens`
 --
 
-CREATE TABLE `ordenes` (
+CREATE TABLE `ordens` (
   `codigo` varchar(20) NOT NULL,
   `idPaciente` varchar(20) NOT NULL,
   `fechaIngreso` date NOT NULL,
   `fechaEntrega` date NOT NULL,
   `estado` varchar(20) NOT NULL,
-  `tpoMuestras` varchar(20) NOT NULL
+  `tpoMuestras` varchar(20) NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `ordenes`
+-- Volcado de datos para la tabla `ordens`
 --
 
-INSERT INTO `ordenes` (`codigo`, `idPaciente`, `fechaIngreso`, `fechaEntrega`, `estado`, `tpoMuestras`) VALUES
-('40123456-2023-10-10', '40123456', '2023-10-10', '2023-10-18', 'ANALITICA', 'SANGRE');
+INSERT INTO `ordens` (`codigo`, `idPaciente`, `fechaIngreso`, `fechaEntrega`, `estado`, `tpoMuestras`, `createdAt`, `updatedAt`) VALUES
+('40123456-2023-10-10', '40123456', '2023-10-10', '2023-10-18', 'ANALITICA', 'SANGRE', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -166,42 +173,44 @@ INSERT INTO `tipos_usuario` (`tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `valor_ref`
+-- Estructura de tabla para la tabla `valor_refs`
 --
 
-CREATE TABLE `valor_ref` (
+CREATE TABLE `valor_refs` (
   `codigo` int(11) NOT NULL,
-  `cod_determ` int(11) NOT NULL,
+  `cod_determ` varchar(11) NOT NULL,
   `nombreRef` varchar(20) NOT NULL,
   `valorMin` varchar(12) NOT NULL,
-  `ValorMax` varchar(12) NOT NULL
+  `ValorMax` varchar(12) NOT NULL,
+  `createdAt` date DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `valor_ref`
+-- Volcado de datos para la tabla `valor_refs`
 --
 
-INSERT INTO `valor_ref` (`codigo`, `cod_determ`, `nombreRef`, `valorMin`, `ValorMax`) VALUES
-(1, 0, 'hombres', '2,0', '15,00'),
-(2, 0, 'mujeres', '1,5', '13,5');
+INSERT INTO `valor_refs` (`codigo`, `cod_determ`, `nombreRef`, `valorMin`, `ValorMax`, `createdAt`, `updatedAt`) VALUES
+(1, '0', 'hombres', '2,0', '15,00', NULL, NULL),
+(2, '0', 'mujeres', '1,5', '13,5', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `detalles_orden`
+-- Indices de la tabla `detalles_ordens`
 --
-ALTER TABLE `detalles_orden`
+ALTER TABLE `detalles_ordens`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `codigoExamen` (`codigoExamen`),
   ADD KEY `codigoOrden` (`codigoOrden`),
   ADD KEY `cod-determ` (`cod-determ`);
 
 --
--- Indices de la tabla `determinaciones`
+-- Indices de la tabla `determinacions`
 --
-ALTER TABLE `determinaciones`
+ALTER TABLE `determinacions`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `cod_examen` (`cod_examen`);
 
@@ -212,9 +221,9 @@ ALTER TABLE `examens`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indices de la tabla `ordenes`
+-- Indices de la tabla `ordens`
 --
-ALTER TABLE `ordenes`
+ALTER TABLE `ordens`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `idPaciente` (`idPaciente`);
 
@@ -232,9 +241,9 @@ ALTER TABLE `tipos_usuario`
   ADD KEY `tipo` (`tipo`);
 
 --
--- Indices de la tabla `valor_ref`
+-- Indices de la tabla `valor_refs`
 --
-ALTER TABLE `valor_ref`
+ALTER TABLE `valor_refs`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `cod_determ` (`cod_determ`);
 
@@ -243,9 +252,9 @@ ALTER TABLE `valor_ref`
 --
 
 --
--- AUTO_INCREMENT de la tabla `detalles_orden`
+-- AUTO_INCREMENT de la tabla `detalles_ordens`
 --
-ALTER TABLE `detalles_orden`
+ALTER TABLE `detalles_ordens`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -255,9 +264,9 @@ ALTER TABLE `examens`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `valor_ref`
+-- AUTO_INCREMENT de la tabla `valor_refs`
 --
-ALTER TABLE `valor_ref`
+ALTER TABLE `valor_refs`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -265,24 +274,24 @@ ALTER TABLE `valor_ref`
 --
 
 --
--- Filtros para la tabla `detalles_orden`
+-- Filtros para la tabla `detalles_ordens`
 --
-ALTER TABLE `detalles_orden`
-  ADD CONSTRAINT `detalles_orden_ibfk_1` FOREIGN KEY (`codigoExamen`) REFERENCES `examens` (`codigo`),
-  ADD CONSTRAINT `detalles_orden_ibfk_2` FOREIGN KEY (`cod-determ`) REFERENCES `determinaciones` (`codigo`),
-  ADD CONSTRAINT `detalles_orden_ibfk_3` FOREIGN KEY (`codigoOrden`) REFERENCES `ordenes` (`codigo`);
+ALTER TABLE `detalles_ordens`
+  ADD CONSTRAINT `detalles_ordens_ibfk_1` FOREIGN KEY (`codigoExamen`) REFERENCES `examens` (`codigo`),
+  ADD CONSTRAINT `detalles_ordens_ibfk_3` FOREIGN KEY (`codigoOrden`) REFERENCES `ordens` (`codigo`),
+  ADD CONSTRAINT `detalles_ordens_ibfk_4` FOREIGN KEY (`cod-determ`) REFERENCES `determinacions` (`codigo`);
 
 --
--- Filtros para la tabla `determinaciones`
+-- Filtros para la tabla `determinacions`
 --
-ALTER TABLE `determinaciones`
-  ADD CONSTRAINT `determinaciones_ibfk_1` FOREIGN KEY (`cod_examen`) REFERENCES `examens` (`codigo`);
+ALTER TABLE `determinacions`
+  ADD CONSTRAINT `determinacions_ibfk_1` FOREIGN KEY (`cod_examen`) REFERENCES `examens` (`codigo`);
 
 --
--- Filtros para la tabla `ordenes`
+-- Filtros para la tabla `ordens`
 --
-ALTER TABLE `ordenes`
-  ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`idPaciente`) REFERENCES `personas` (`dni`);
+ALTER TABLE `ordens`
+  ADD CONSTRAINT `ordens_ibfk_1` FOREIGN KEY (`idPaciente`) REFERENCES `personas` (`dni`);
 
 --
 -- Filtros para la tabla `personas`
@@ -291,10 +300,10 @@ ALTER TABLE `personas`
   ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`tipo_usuario`) REFERENCES `tipos_usuario` (`tipo`);
 
 --
--- Filtros para la tabla `valor_ref`
+-- Filtros para la tabla `valor_refs`
 --
-ALTER TABLE `valor_ref`
-  ADD CONSTRAINT `valor_ref_ibfk_1` FOREIGN KEY (`cod_determ`) REFERENCES `determinaciones` (`codigo`);
+ALTER TABLE `valor_refs`
+  ADD CONSTRAINT `valor_refs_ibfk_1` FOREIGN KEY (`cod_determ`) REFERENCES `determinacions` (`codigo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
