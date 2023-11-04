@@ -1,14 +1,20 @@
 import { Sequelize,Model,DataTypes } from 'sequelize';
 import { sequelize } from './conexion.js';
-console.log(sequelize);
-  class Persona extends Model {
+
+  class Paciente extends Model {
 
   }
-  Persona.init({
+  Paciente.init({
+      id:{
+        type: DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+      },
       dni:{
         type:DataTypes.INTEGER,
         allowNull:false,
-        primaryKey:true
+        unique:true
+        
       },
       
       apellido: {
@@ -26,22 +32,13 @@ console.log(sequelize);
       fecha_nac:{
         type:DataTypes.DATE
       },
-      ciudad_nac:{
-        type: DataTypes.STRING
-      },
-      pais_nac:{
-        type: DataTypes.STRING
-      },
       embarazada:{
-        type:DataTypes.INTEGER
+        type:DataTypes.BOOLEAN
       },
-       pre_diagnostico: {
+     diagnostico: {
         type: DataTypes.STRING
       },
       patolog_prev:{
-        type:DataTypes.STRING
-      },
-      tipo_usuario:{
         type:DataTypes.STRING
       },
       email:{
@@ -55,6 +52,7 @@ console.log(sequelize);
     },
       {
     sequelize,
-   
+    modelName: 'Pacientes',
   });
-  export{Persona};
+
+  export{Paciente};

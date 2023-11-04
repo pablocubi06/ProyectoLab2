@@ -4,23 +4,22 @@ import { sequelize } from './conexion.js';
   
   }
   Determinacion.init({
-    codigo:{
+    id:{
       type:DataTypes.INTEGER,
-      allowNull:true,
       primaryKey:true,
-      autoIncrement: true
+      autoIncrement:true
     },
-
-    cod_examen:{
-      type:DataTypes.INTEGER,
-      allowNull:true,
-      autoIncrement: false
-    },
-    
+     
     nombre_determ: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique:true
     },
+    nombreExamen:{
+      type:DataTypes.STRING,
+      allowNull:false,
+      
+    },   
     unidad_medida: {
       type: DataTypes.STRING,
       allowNull: false
@@ -28,7 +27,7 @@ import { sequelize } from './conexion.js';
   },
       {
       sequelize,
-      
+      modelName: 'Determinaciones',
       
 });
 export{Determinacion};

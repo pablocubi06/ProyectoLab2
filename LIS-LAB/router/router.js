@@ -1,12 +1,16 @@
 import express, { Router } from 'express';
 const router = Router();
-import { Persona } from '../models/persona.js';
+import { Orden } from '../models/orden.js';
+import { TipoUsuario } from '../models/tipousuario.js';
+import { EstadoOrden } from '../models/estadoOrden.js';
+import { Auditoria } from '../models/auditoria.js';
 import { Examen } from '../models/examen.js';
 import { Determinacion } from '../models/determinacion.js';
 import { Valorref } from '../models/valorref.js';
 const app = express();
 import path from 'path';
 import { render } from 'pug';
+import { Paciente } from '../models/paciente.js';
 
 app.set('view engine', 'pug');
 app.set('views', './vistas');
@@ -14,8 +18,6 @@ app.set('views', './vistas');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-let determinaciones = [];
-determinaciones = Valorref.findAll();
 
 app.get('/', (req, res) => {
   res.render('menu')
@@ -29,21 +31,23 @@ app.get('/cargarPaciente', (req, res) => {
 
 app.get('/editar/:id', async (req, res) => {
   const pacienteId = req.params.id;
-  const paciente = await Persona.findByPk(pacienteId);
+  const paciente = await Paciente.findByPk(pacienteId);
   res.render('editar', { paciente });
 
 });
 
 app.get('/nuevaOrden/:id', async (req, res) => {
   const pacienteId = req.params.id;
-  const paciente = await Persona.findByPk(pacienteId);
-  res.render('nuevaOrden');
+  console.log(pacienteId)
+  const persona = await Paciente.findByPk(pacienteId);
+  console.log(persona);
+  res.render('nuevaOrden',{persona});
 
 });
 
 app.get('/api/personas', async (req, res) => {
   try {
-    const personas = await Persona.findAll(); // Esto asume que tienes un modelo "Persona"
+    const personas = await Paciente.findAll(); // Esto asume que tienes un modelo "Persona"
 
     res.json(personas); // Devuelve los resultados como JSON
   } catch (error) {
@@ -58,11 +62,11 @@ app.post('/buscar?criterio=${criterio}&valor=${valor}', async (req, res) => {
   let pacientes = [];
 
   if (criterio === 'nombre') {
-    pacientes = await Persona.findAll({ where: { nombre: valor } });
+    pacientes = await Paciente.findAll({ where: { nombre: valor } });
   } else if (criterio === 'dni') {
-    pacientes = await Persona.findAll({ where: { dni: valor } });
+    pacientes = await Paciente.findAll({ where: { dni: valor } });
   } else if (criterio === 'email') {
-    pacientes = await Persona.findAll({ where: { email: valor } });
+    pacientes = await Paciente.findAll({ where: { email: valor } });
   }
 
   res.render('orden', { pacientes });
@@ -72,14 +76,14 @@ app.post('/cargar-paciente', async (req, res) => {
   try {
     // Obtén los datos del formulario
     const {
-      dni, apellido, nombre, sexo, fecha_nac, ciudad_nac, pais_nac, embarazada, pre_diagnostico,
-      patolog_prev, tipo_usuario, email, telefono
+      dni, apellido, nombre, sexo, fecha_nac, embarazada, diagnostico,
+      patolog_prev, email, telefono
     } = req.body;
-
+    console.log(sexo);
     // Crea un nuevo paciente en la base de datos usando el modelo Paciente
-    await Persona.create({
-      dni, apellido, nombre, sexo, fecha_nac, ciudad_nac, pais_nac, embarazada, pre_diagnostico,
-      patolog_prev, tipo_usuario, email, telefono
+    await Paciente.create({
+      dni, apellido, nombre, sexo, fecha_nac,embarazada, diagnostico,
+      patolog_prev, email, telefono
     });
 
     // Redirige a una página de éxito o a donde desees
@@ -100,12 +104,9 @@ app.post('/guardar-edicion', (req, res) => {
     nombre: req.body.nombre,
     sexo: req.body.sexo,
     fecha_nac: req.body.fecha_nac,
-    ciudad_nac: req.body.ciudad_nac,
-    pais_nac: req.body.pais_nac,
     embarazada: req.body.embarazada,
-    pre_diagnostico: req.body.pre_diagnostico,
+    diagnostico: req.body.pre_diagnostico,
     patolog_prev: req.body.patolog_prev,
-    tipo_usuario: req.body.tipo_usuario,
     email: req.body.email,
     telefono: req.body.telefono
   };
@@ -142,9 +143,9 @@ app.get('/valoresDeReferencia', (req, res) => {
 });
 app.post('/cargar-examen', async (req, res) => {
   try {
-    const { nombre_analisis, tipo_muestra, dias_demora, nota } = req.body;
+    const {codigo, nombre_analisis, tipo_muestra,nota, dias_demora} = req.body,eliminado=false;
     await Examen.create({
-      nombre_analisis, tipo_muestra, dias_demora, nota
+     codigo,nombre_analisis, tipo_muestra,nota, dias_demora,eliminado
     });
    
     // Enviar respuesta al cliente en formato JSON

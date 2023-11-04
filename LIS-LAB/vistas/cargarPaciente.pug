@@ -33,27 +33,16 @@ html
       label(for="fecha_nac") Fecha de Nacimiento:
       input(type="date", name="fecha_nac", required)
 
-      label(for="ciudad_nac") Ciudad de Nacimiento:
-      input(type="text", name="ciudad_nac", required)
-
-      label(for="pais_nac") País de Nacimiento:
-      input(type="text", name="pais_nac", required)
-
       label(for="embarazada") Embarazada:
-      input(type="checkbox", name="embarazada")
+      select(name="embarazada")
+        option(value="false") No
+        option(value="true") Si
 
-      label(for="pre_diagnostico") Pre-diagnóstico:
-      input(type="text", name="pre_diagnostico")
+      label(for="diagnostico") Diagnóstico:
+      input(type="text", name="diagnostico")
 
       label(for="patolog_prev") Patología Previa:
       input(type="text", name="patolog_prev")
-
-      label(for="tipo_usuario") Tipo de Usuario:
-      select(name="tipo_usuario")
-        option(value="administrador") Administrador
-        option(value="tecnico") Tecnico
-        option(value="bioquimico") Bioquimico
-        option(value="paciente") paciente 
 
       label(for="email") Correo Electrónico:
       input(type="email", name="email")

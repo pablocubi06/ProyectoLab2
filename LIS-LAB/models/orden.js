@@ -1,29 +1,34 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Sequelize,Model,DataTypes } from 'sequelize';
+import { sequelize } from './conexion.js';
   class Orden extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    
     }
-  }
+  
   Orden.init({
-    codigo: DataTypes.STRING,
-    idPaciente: DataTypes.STRING,
-    fechaIngreso: DataTypes.DATE,
-    fechaEntrega: DataTypes.DATE,
-    pre_diagnostico: DataTypes.STRING,
-    estado: DataTypes.STRING,
-    tipoMuestras: DataTypes.STRING
+    id:{
+      type:DataTypes.INTEGER,
+      primaryKey:true,
+      autoIncrement:true
+    },
+    idPaciente:{
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    fechaCreacion:{
+      type:DataTypes.DATE,
+      allowNull:false
+    },
+    fechaEntrega:{
+      type:DataTypes.DATE,
+      allowNull:false
+    },
+    estado:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
+    
   }, {
     sequelize,
-    modelName: 'Orden',
+    modelName: 'Ordenes',
   });
-  return Orden;
-};
+  export{Orden};

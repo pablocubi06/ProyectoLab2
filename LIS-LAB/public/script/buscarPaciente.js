@@ -26,18 +26,17 @@ inputBusqueda.addEventListener('keyup', () => {
 function buscarEnDatos(valor, datos, criterio) {
     return datos.filter(persona => {
       const nombre = persona.nombre.toLowerCase();
-      const dni = persona.dni.toLowerCase();
+      const dni = persona.dni;
       const email = persona.email.toLowerCase();
   
       switch (criterio) {
         case 'nombre':
-          return nombre.includes(valor);
+          return nombre.indexOf(valor) !== -1;
         case 'dni':
-          return dni.includes(valor);
+          return dni.indexOf(valor) !== -1;
         case 'email':
-          return email.includes(valor);
-        default:
-          return nombre.includes(valor) || dni.includes(valor) || email.includes(valor);
+          return email.indexOf(valor) !== -1;
+      
       }
     });
   }
@@ -71,7 +70,7 @@ function llenarTabla(resultados) {
     botonCargar.textContent = 'Cargar Orden';
     botonCargar.addEventListener('click', () => {
       // Aquí puedes redirigir al usuario a la página de edición
-      window.location.href = `/nuevaOrden/${persona.dni}`;
+      window.location.href = `/nuevaOrden/${persona.id}`;
     });
     // Agrega el botón al elemento celdaAccion
     celdaAccion.appendChild(botonEditar);

@@ -4,22 +4,27 @@ import { sequelize } from './conexion.js';
   
   }
   Valorref.init({
-    codigo:{
+    id:{
       type:DataTypes.INTEGER,
-      allowNull:true,
       primaryKey:true,
-      autoIncrement: true
+      autoIncrement:true
     },
-
-    cod_determ:{
-      type:DataTypes.INTEGER,
+    nombreDererminacion:{
+      type:DataTypes.STRING,
       allowNull:true,
-      autoIncrement: false
+      
     },
-    
-    nombreRef: {
-      type: DataTypes.STRING,
+    sexoPaciente:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    edadMin: {
+      type: DataTypes.INTEGER,
       allowNull: false
+    },
+    edadMax: {
+      type:DataTypes.INTEGER,
+      allowNull:false
     },
     valorMin: {
       type: DataTypes.STRING,
@@ -32,7 +37,7 @@ import { sequelize } from './conexion.js';
   },
       {
       sequelize,
-      
+      modelName: 'ValorRef',
       
 });
 export{Valorref};

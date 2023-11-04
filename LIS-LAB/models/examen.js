@@ -1,20 +1,26 @@
 import { Model,DataTypes } from 'sequelize';
 import { sequelize } from './conexion.js';
-console.log(sequelize);
+
   class Examen extends Model {
 
   }
   Examen.init({
-      codigo:{
+      id:{
         type:DataTypes.INTEGER,
-        allowNull:true,
         primaryKey:true,
-        autoIncrement: true
+        autoIncrement:true
+      },
+      codigo:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        unique:true
+        
       },
       
       nombre_analisis: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique:true
       },
       tipo_muestra: {
         type: DataTypes.STRING,
@@ -27,10 +33,14 @@ console.log(sequelize);
       nota: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      eliminado:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false
       }
     },
         {
         sequelize,
-        
+        modelName: 'Examenes',
   });
   export{Examen};
