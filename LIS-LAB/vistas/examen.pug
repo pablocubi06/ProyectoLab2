@@ -8,41 +8,6 @@ html(lang="en")
     title Document
   body(background="/images/bioquimica-1920x1280.jpg")
     .row
-      .col-7
-        form.d-flex(action="/buscar-examen", method="post")
-          input(class="form-control me-2" type="search" name = "valor" placeholder="Buscar exámenes" aria-label="Search")
-          button(class="btn btn-outline-info" type="submit") Buscar
-
-
-        // Si hay exámenes, los muestra en una tabla
-        if (examenes && examenes.length > 0) 
-          h2 Resultados de Búsqueda
-          table(class="table table-success table-striped")
-            thead(class= "table-success")
-              tr(class= "table-success")
-                th(class= "table-success") Código
-                th(class= "table-success") Nombre Análisis
-                th(class= "table-success") Tipo de Muestra
-                th(class= "table-success") Demora 
-                th(class= "table-success") Notas
-                th(class= "table-success") Acciones
-            tbody(class= "table-success")
-              each examen in examenes
-                tr(class= "table-success")
-                  td(class="table-success") #{examen.codigo}
-                  td(class="table-success") #{examen.nombre_analisis}
-                  td(class="table-success") #{examen.tipo_muestra}
-                  td(class="table-success") #{examen.dias_demora}
-                  td(class="table-success") #{examen.nota}
-                  td(class="table-success")
-                    form(action=`/editar-examen/${examen.codigo}`, method="get")
-                      button(class="btn btn-outline-success" type="submit") Actualizar 
-                    form(action=`/eliminar-examen/${examen.codigo}`, method="get")
-                      button(class="btn btn-outline-danger" type="submit") Eliminar
-        -else 
-          //h2 No se encontraron resultados
-          //form(action="/cargarPaciente", method="get")
-            button(type="submit") Agregar nuevo
       .col-4
         figure.text-center
           blockquote
@@ -51,6 +16,9 @@ html(lang="en")
           figcaption.blockquote-footer AGREGAR NUEVO <cite title="Source Title">EXÁMEN</cite>
         figure
         form.row.g-3(action="/cargar-examen", method="post")
+          .col-12
+            label(for="inputAddress" class="form-label") Codigo
+            input(type="text" class="form-control" name="codigo" )
           .col-12
             label(for="inputAddress" class="form-label") Nombre análisis
             input(type="text" class="form-control" name="nombre_analisis" placeholder="Ejemplo: Hemograma ")
@@ -69,7 +37,7 @@ html(lang="en")
             label(for="inputAdress" class="form-label") Anotaciones
             textArea(type="text" class="form-control" name="nota")
           .col-12
-            button(type="submit" class="btn btn-info") Enviar
+            button(type="submit" class="btn btn-info") Cargar
             label#message(name="message" rows="4" cols="50")
           .col-12
             form.row.g-3(action=`/volver-menu`, method="get")

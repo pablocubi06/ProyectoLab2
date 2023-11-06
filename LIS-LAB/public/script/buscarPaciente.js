@@ -1,16 +1,16 @@
-let personas; // Variable para almacenar los datos de personas
+let personas; 
 
-// Realiza la solicitud GET y almacena el resultado en la variable "personas"
-fetch('/api/personas') // Ajusta la ruta a tu aplicación
+
+fetch('/api/personas') 
   .then(response => response.json())
   .then(data => {
-    personas = data; // "personas" contiene los datos como un objeto JavaScript
+    personas = data; 
   })
   .catch(error => {
     console.error('Error al obtener datos de personas:', error);
   });
   console.log(personas)
-// EventListener para el evento "keyup" en el campo de búsqueda
+
 const inputBusqueda = document.getElementById('valor');
 console.log(inputBusqueda)
 inputBusqueda.addEventListener('keyup', () => {
@@ -22,7 +22,7 @@ inputBusqueda.addEventListener('keyup', () => {
     
     llenarTabla(resultados);
   });
-// Función para buscar en los datos locales
+
 function buscarEnDatos(valor, datos, criterio) {
     return datos.filter(persona => {
       const nombre = persona.nombre.toLowerCase();
@@ -41,21 +41,21 @@ function buscarEnDatos(valor, datos, criterio) {
     });
   }
 
-// Función para llenar la tabla con los resultados
+
 function llenarTabla(resultados) {
   const tabla = document.getElementById('resultados');
   console.log(tabla)
-  // Limpia la tabla antes de llenarla con los nuevos resultados
+  
   tabla.innerHTML = '';
 
-  // Llena la tabla con los resultados
+  
   resultados.forEach(persona => {
     const fila = tabla.insertRow();
     const celdaNombre = fila.insertCell(0);
     const celdaDNI = fila.insertCell(1);
     const celdaEmail = fila.insertCell(2);
     const celdaAccion = fila.insertCell(3);
-    // Añade más celdas según las columnas de tu tabla
+    
 
     celdaNombre.textContent = persona.nombre;
     celdaDNI.textContent = persona.dni;
@@ -69,13 +69,13 @@ function llenarTabla(resultados) {
     const botonCargar = document.createElement('button');
     botonCargar.textContent = 'Cargar Orden';
     botonCargar.addEventListener('click', () => {
-      // Aquí puedes redirigir al usuario a la página de edición
+     
       window.location.href = `/nuevaOrden/${persona.id}`;
     });
-    // Agrega el botón al elemento celdaAccion
+    
     celdaAccion.appendChild(botonEditar);
     celdaAccion.appendChild(botonCargar);
-    // Asigna más valores a las celdas según tus datos
+   
   
   
   });

@@ -8,53 +8,16 @@ html(lang="en")
     header
       h3.text-center Determinaciones
       .row
-        .col-6
-          form.d-flex.container(action="/buscar-determinacion", method="post")
-            input.form-control.me-2(name = "valor" type="search", placeholder="Ingresa el tipo de examen ", aria-label="Search")
-            button.btn.btn-outline-info(type="submit") Buscar
-          // Si hay exámenes, los muestra en una tabla
-          if (d && d.length > 0) 
-            h2 Resultados de Búsqueda
-            .col-6
-            table(class="table table-success table-striped")
-              thead(class= "table-success")
-                tr(class= "table-success")
-                  th(class= "table-success") Código
-                  th(class= "table-success") Cod Examen
-                  th(class= "table-success") Determinacion
-                  th(class= "table-success") Unidad de medida
-                  th(class= "table-success") Acciones
-              tbody(class= "table-success")
-                each ds in d
-                  tr(class= "table-success")
-                    td(class="table-success") #{ds.codigo}
-                    td(class="table-success") #{ds.cod_examen}
-                    td(class="table-success") #{ds.nombre_determ}
-                    td(class="table-success") #{ds.unidad_medida}
-                    td(class="table-success")
-                      form(action=`/editar-examen/${ds.codigo}`, method="get")
-                        button(class="btn btn-outline-success" type="submit") Actualizar 
-                      form(action=`/eliminar-examen/${ds.codigo}`, method="get")
-                        button(class="btn btn-outline-danger" type="submit") Eliminar
-          -else 
-            //h2 No se encontraron resultados
-            //form(action="/cargarPaciente", method="get")
-              button(type="submit") Agregar nuevo  
-        .col-5
+       .col-5
           figure.text-center
             blockquote.blockquote
               h5.blockquote-title Determinación
             figcaption.blockquote-footer
               AGREGAR NUEVA DETERMINACION A UNA TIPO DE EXAMEN
-            form.row.g-3
+            form.row.g-3(action="/cargar-determinacion", method="post")
               .col-md-12
                 label.form-label(for="inputState") Examen
-                select#Examenes.form-select
-                  if examenes
-                    each examen in examenes
-                      option(value="${examen.codigo}") ${examen.nombre_analisis}
-                  else
-                    option(value="0") Seleccionar examen
+                select#examenes.form-select                
               .col-12
                 label.form-label(for="inputAddress") Nombre de la determinación
                 input(type="text", class="form-control", id="inputAddress", placeholder="Ejemplo: glucosa")

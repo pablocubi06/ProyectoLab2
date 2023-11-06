@@ -11,6 +11,7 @@ const app = express();
 import path from 'path';
 import { render } from 'pug';
 import { Paciente } from '../models/paciente.js';
+import { where } from 'sequelize';
 
 app.set('view engine', 'pug');
 app.set('views', './vistas');
@@ -148,8 +149,8 @@ app.post('/cargar-examen', async (req, res) => {
      codigo,nombre_analisis, tipo_muestra,nota, dias_demora,eliminado
     });
    
-    // Enviar respuesta al cliente en formato JSON
-      res.json({ message: '¡Nuevo dato cargado exitosamente!' });
+    
+      res.render("examen")
 
   } catch (error) {
 
@@ -210,24 +211,26 @@ const getExamenesData = (req, res, next) => {
   next();
 };
 
-// app.get para renderizar la página
-app.get("/determinacion", getExamenesData, (req, res) => {
-  // obtener los datos del examen de la sesión
-  const examenes = req.session.examenes;
-
-  // renderizar la página con los datos del examen
-  res.render("determinacion", {examenes });
-  console.log(examenes)
-});
 
 app.get('/determinacion', async (req, res) => {
-  
-  let examenes = [];
-  examenes = await Examen.findAll();
-  res.render('examen', {examenes});
-  console.log(examenes);
-
+  res.render("determinacion");
 });
+app.get('/api/examenes',async(req,res)=>{
+  try {
+    const examenes = await Examen.findAll({
+      where:{
+        eliminado:false
+      }
+    }); 
+
+    res.json(examenes); 
+  } catch (error) {
+    console.error('Error al obtener datos de personas:', error);
+    res.status(500).json({ error: 'Error al obtener datos de personas' });
+  }
+
+})
+
 app.post('/buscar-determinacion', async (req, res) => {
   const {valor} = req.body;
   let d = [];

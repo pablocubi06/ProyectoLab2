@@ -1,24 +1,26 @@
-// Importar el módulo Sequelize
-import { Examen } from '../models/examen.js';
+const examenesSelect = document.getElementById('examenes'); 
+let examenes;
 
 
-// Crear una función que busque el tipo de examen especificado en la tabla de exámenes
-const buscarTipoExamen = async () => {
-  const examenes = await Examen.findAll({
+fetch('/api/examenes')
+  .then(response => response.json())
+  .then(data => {
+    examenes = data;
+
+    // Crea una opción predeterminada y agrégala al select
+    const defaultOption = document.createElement('option');
+    defaultOption.value = ''; 
+    defaultOption.textContent = 'Seleccione un examen';
+    examenesSelect.appendChild(defaultOption);
+
+    // Itera sobre los datos y crea opciones para el select
+    examenes.forEach(examen => {
+      const option = document.createElement('option');
+      option.value = examen.codigo; 
+      option.textContent = examen.nombre_analisis; 
+      examenesSelect.appendChild(option); 
+    });
+  })
+  .catch(error => {
+    console.error('Error al obtener datos de exámenes:', error);
   });
-return examenes;
-};
-
-// Ejecutar la función y obtener los resultados
-const examenes = buscarTipoExamen();
-
-// Crear un option para cada resultado
-const options = examenes.map((examen) => {
-  return (
-    <option value={examen.codigo}>{examen.nombre_analisis}</option>
-  );
-});
-
-// Agregar los options al elemento DOM correspondiente
-const select = document.querySelector("#examenes");
-select.innerHTML = options.join("");
