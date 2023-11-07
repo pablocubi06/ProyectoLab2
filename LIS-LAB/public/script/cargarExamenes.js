@@ -167,7 +167,7 @@ function imprimir(){
    const datos = {
     numeroOrden: '1',
     nombrePaciente: document.getElementById('nombre').value,
-    fecha: '01/01/2023',
+    fecha: document.getElementById('fechaInput').value,
   };
 
   // Realizar una solicitud AJAX para obtener las etiquetas renderizadas

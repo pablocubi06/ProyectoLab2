@@ -150,7 +150,7 @@ app.post('/imprimirEtiquetas', (req, res) => {
   const datos = {
     numeroOrden: '1',
     nombrePaciente: req.body.nombrePaciente,
-    fecha: '01/01/2023',
+    fecha: req.body.fecha,
   };
   console.log(datos)
 
