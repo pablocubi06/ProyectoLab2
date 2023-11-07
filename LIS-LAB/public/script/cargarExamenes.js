@@ -1,4 +1,5 @@
-
+const fs = require('fs');
+const pug = require('pug');
 
 const tabla = document.getElementById('examenes');
 const tablaSeleccionados = document.getElementById('seleccionados'); // Referencia a la segunda tabla
@@ -80,12 +81,28 @@ function actualizarTablaSeleccionados() {
     const celdaCodigo = fila.insertCell(1);
     const celdaNombre = fila.insertCell(2);
     const celdaTipoMuestra = fila.insertCell(3);
+    const celdaAccion = fila.insertCell(4);
     examenID.push(examen.id);
     celdaId.textContent = examen.id;
     celdaCodigo.textContent = examen.codigo;
     celdaNombre.textContent = examen.nombre_analisis;
     celdaTipoMuestra.textContent = examen.tipo_muestra;
-  });
+    const botonEliminar = document.createElement('button');
+      botonEliminar.textContent = 'Eliminar';
+      botonEliminar.addEventListener('click', (event) => {
+        event.preventDefault();
+        const examenExistente = examenesSeleccionados.find(e => e.id === examen.id);
+  
+          examenesSeleccionados.pop(examen);
+          examenID.pop(examen);
+          actualizarTablaSeleccionados();
+        
+      });
+
+      celdaAccion.appendChild(botonEliminar);
+    });
+
+  
   diasDemora();
   fechaEntrega();
 }
@@ -104,12 +121,12 @@ function diasDemora(){
 }
 function fechaEntrega() {
   const entrega = document.getElementById('entrega');
-  const actual = new Date(document.getElementById('fechaInput').value); // Convertir la fecha a un objeto Date
-  const dias = parseInt(document.getElementById('dias').value); // Convertir la cantidad de días a un número entero
+  const actual = new Date(document.getElementById('fechaInput').value); // Convierte la fecha a un objeto Date
+  const dias = parseInt(document.getElementById('dias').value); // Convirte la cantidad de días a un número entero
 
   if (!isNaN(dias)) {
-    actual.setDate(actual.getDate() + dias); // Sumar los días a la fecha actual
-    entrega.value = actual.toISOString().split('T')[0]; // Formatear y mostrar la nueva fecha en el campo de entrega
+    actual.setDate(actual.getDate() + dias); 
+    entrega.value = actual.toISOString().split('T')[0]; // Formatear y muestrar la nueva fecha en el campo de entrega
   } else {
     console.log('La cantidad de días no es un número válido.');
   }
@@ -138,12 +155,34 @@ console.log(idPaciente)
     body: JSON.stringify(dataToSend),
   })
   .then(response => response.json())
-  .then(data => {
-    // Maneja la respuesta del servidor si es necesario
-    console.log(data);
-  })
+
   .catch(error => {
     // Maneja cualquier error en la solicitud
     console.error('Error en la solicitud POST:', error);
   });
 });
+
+function imprimir(){
+   // Datos para las etiquetas (reemplaza estos valores con los correctos)
+   const datos = {
+    numeroOrden: '1',
+    nombrePaciente: document.getElementById('nombre').value,
+    fecha: document.getElementById('fechaInput').value,
+  };
+
+  // Realizar una solicitud AJAX para obtener las etiquetas renderizadas
+  fetch('/imprimirEtiquetas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(datos),
+  })
+    .then((response) => response.text())
+    .then((contenidoAImprimir) => {
+      const ventana = window.open('', 'VentanaDeImpresion', 'width=800,height=600');
+      ventana.document.write(contenidoAImprimir);
+      ventana.document.close();
+      ventana.print();
+    });
+}

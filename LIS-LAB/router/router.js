@@ -97,6 +97,7 @@ app.post('/cargar-paciente', async (req, res) => {
   }
 });
 
+
 app.post('/cargarOrden',async(req,res)=>{
   const fechaCreacion = req.body.fechaCreacion;
   const fechaEntrega = req.body.fechaEntrega;
@@ -108,9 +109,10 @@ app.post('/cargarOrden',async(req,res)=>{
   await Orden.create({
     idPaciente,idExamen,muestra,fechaCreacion,fechaEntrega,estado
   })
-
+res.render()
 })
-// Ruta para procesar el formulario de edición (POST)
+
+
 app.post('/guardar-edicion', (req, res) => {
   const pacienteId = req.body.dni;
   const nuevosDatos = {
@@ -143,6 +145,18 @@ app.post('/buscar-examen', async (req, res) => {
   examenes = await Examen.findAll({ where: { nombre_analisis: valor } });
   res.render('examen', {examenes});
  
+});
+app.post('/imprimirEtiquetas', (req, res) => {
+  // Datos para las etiquetas (reemplaza estos valores con los correctos)
+  const datos = {
+    numeroOrden: '1',
+    nombrePaciente: req.body.nombrePaciente,
+    fecha: req.body.fecha,
+  };
+  console.log(datos)
+
+  // Renderiza las etiquetas usando Pug
+  res.render('imprimirEtiquetas',{datos});
 });
 
 app.get('/examen', (req, res) => {

@@ -1,6 +1,8 @@
 html(lang="en")
   head
     meta(charset="UTF-8")
+    link(rel="stylesheet", href="/public/css/cssMenu.css")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css", rel="stylesheet")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")  
@@ -12,8 +14,9 @@ html(lang="en")
       .col-8
         figure(class="text-center")
           blockquote.blockquote
-            h3(class="blockquote-footer") Agregar nueva ORDEN
+            h2(class="blockquote-footer") Agregar nueva ORDEN
         form(class="row g-2",action="/cargarOrden", method="post" )
+          h3(class="blockquote-footer") Agregar nueva ORDEN
           .col-4
             label(for="inputAddress", class="form-label") Fecha de ingreso
             input(type="date", class="form-control", id="fechaInput")
@@ -25,10 +28,10 @@ html(lang="en")
             input(type="text", class="form-control", id="dni",value=persona.dni, disabled)
           .col-5
             label(for="inputAddress", class="form-label") Apellido del paciente
-            input(type="text", class="form-control", id="inputAddress",value=persona.apellido, disabled)
+            input(type="text", class="form-control", id="apellido",value=persona.apellido, disabled)
           .col-5
             label(for="inputAddress", class="form-label") Nombre del paciente
-            input(type="text", class="form-control", id="inputAddress",value=persona.nombre, disabled)
+            input(type="text", class="form-control", id="nombre",value=persona.nombre, disabled)
           .col-md-6
             label(for="inputEmail4", class="form-label") Dias de demora
             input(type="text", class="form-control", id="dias")
@@ -49,20 +52,22 @@ html(lang="en")
                 tbody(id="examenes")
                       
           .col-6
-            h2 Examen agregado
+            h2(class="blockquote-footer") Examen agregado
             table.table.table-bordered
                 thead
                     tr
                     th ID
                     th Codigo
                     th Nombre
-                    th Tipo de Muestra                             
+                    th Tipo de Muestra   
+                    th Accion                           
                 tbody(id="seleccionados")
                  
               
           .col-12
-           
-            button(type="submit", class="btn btn-info", id='enviarDatos') Generar orden
-              
+          
+           button(type="button",class="btn btn-info",onclick="imprimir()") Imprimir Estiquetas
+           button(type="submit", class="btn btn-info", id='enviarDatos') Generar orden
+            
     script(src="/script/fechaActual.js") 
     script(src="/script/cargarExamenes.js") 
