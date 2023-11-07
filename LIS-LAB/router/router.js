@@ -96,14 +96,14 @@ app.post('/cargar-paciente', async (req, res) => {
   }
 });
 
-app.post('/cargarOrden',async(rep,res)=>{
-  const fechaCreacion = req.body.fechaInput;
-  const fechaEntrega = req.body.entrega;
-  const idExamen =''
-  
-  const idPaciente=req.body.dni;
+app.post('/cargarOrden',async(req,res)=>{
+  const fechaCreacion = req.body.fechaCreacion;
+  const fechaEntrega = req.body.fechaEntrega;
+  const idExamen = req.body.idExamen;  
+  const idPaciente=req.body.idPaciente;
   const muestra = true
   const estado = "Esperando Toma de muestra";
+  console.log(idExamen);
   await Orden.create({
     idPaciente,idExamen,muestra,fechaCreacion,fechaEntrega,estado
   })

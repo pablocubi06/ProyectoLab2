@@ -13,7 +13,7 @@ import { sequelize } from './conexion.js';
     idPaciente:{
       type:DataTypes.INTEGER,
       allowNull:false,
-      unique:true
+      
     },
     idExamen:{
       type:DataTypes.JSON,

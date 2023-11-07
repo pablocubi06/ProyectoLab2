@@ -62,7 +62,7 @@ function buscarEnDatos(valor, datos) {
   
         if (!examenExistente) {
           examenesSeleccionados.push(examen);
-          examenID.push(examen);
+          
           actualizarTablaSeleccionados();
         }
       });
@@ -80,7 +80,7 @@ function actualizarTablaSeleccionados() {
     const celdaCodigo = fila.insertCell(1);
     const celdaNombre = fila.insertCell(2);
     const celdaTipoMuestra = fila.insertCell(3);
-    
+    examenID.push(examen.id);
     celdaId.textContent = examen.id;
     celdaCodigo.textContent = examen.codigo;
     celdaNombre.textContent = examen.nombre_analisis;
@@ -114,3 +114,36 @@ function fechaEntrega() {
     console.log('La cantidad de días no es un número válido.');
   }
 }
+document.getElementById('enviarDatos').addEventListener('click', () => {
+ 
+  const idPaciente = document.getElementById('dni').value;
+  const fechaCreacion = document.getElementById('fechaInput').value;
+  const fechaEntrega = document.getElementById('entrega').value;
+console.log(idPaciente)
+
+  // Crea un objeto con los valores a enviar al servidor
+  const dataToSend = {
+    idExamen: examenID,
+    idPaciente: idPaciente,
+    fechaCreacion: fechaCreacion,
+    fechaEntrega : fechaEntrega  
+      };
+
+  // Enviar los datos al servidor
+  fetch('/cargarOrden', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataToSend),
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Maneja la respuesta del servidor si es necesario
+    console.log(data);
+  })
+  .catch(error => {
+    // Maneja cualquier error en la solicitud
+    console.error('Error en la solicitud POST:', error);
+  });
+});

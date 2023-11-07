@@ -13,7 +13,7 @@ html(lang="en")
         figure(class="text-center")
           blockquote.blockquote
             h3(class="blockquote-footer") Agregar nueva ORDEN
-        form(class="row g-2"action="/cargarOrden", method="post" )
+        form(class="row g-2",action="/cargarOrden", method="post" )
           .col-4
             label(for="inputAddress", class="form-label") Fecha de ingreso
             input(type="date", class="form-control", id="fechaInput")
@@ -62,7 +62,7 @@ html(lang="en")
               
           .col-12
            
-            button(type="submit", class="btn btn-info") Generar orden
+            button(type="submit", class="btn btn-info", id='enviarDatos') Generar orden
               
     script(src="/script/fechaActual.js") 
     script(src="/script/cargarExamenes.js") 
