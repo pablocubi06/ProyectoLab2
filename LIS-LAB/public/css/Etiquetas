@@ -1,0 +1,15 @@
+      body {
+        width :7cm;
+        height : 2cm;
+        margin : 0;
+        padding : 0;
+        font-family: Arial, sans-serif;
+        font-size:  10pt;
+      }
+      .etiqueta {
+        width : 7cm;
+        height : 2cm;
+        border:1px solid #000;
+        text-align : center;
+        line-height : "2cm";
+      }
