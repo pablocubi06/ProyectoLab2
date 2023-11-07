@@ -2,31 +2,44 @@ doctype html
 html
   head
     link(rel="stylesheet", href="/css/style.css")
-    
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
     title Búsqueda de Paciente
   body
-    h1 Búsqueda de Paciente
-    form(action="/buscar", method="post")
-      select(name="criterio" id="criterio")
-        option(value="nombre") Nombre
-        option(value="dni") DNI
-        option(value="email") Correo Electrónico
-      input(type="text", name="valor",id="valor", placeholder="Valor a buscar", required)
-      button(type="submit") Buscar
+     .row
+      .col-2
+      .col-4
+        figure.text-center
+          blockquote
+            h1 BUSQUEDA DE PACIENTES
+        figure
+        form.d-flex(action="/buscar", method="post")
+          .col-5
+            select(name="criterio" id="criterio")
+              option(value="nombre") Nombre
+              option(value="dni") DNI
+              option(value="email") Correo Electrónico
+          .col-5
+            input(type="text", name="valor",id="valor", placeholder="Valor a buscar", required)
+          .col-2
+            button(type="submit") Buscar
 
-  
-    
-    h2 Resultados de Búsqueda
-    table.table.table-bordered
-     thead
-        tr
-         th Nombre
-         th DNI
-         th Correo Electrónico
-         th Acción
-     tbody(id="resultados")
+          form(action="/buscar", method="post")
+          
+          
+
+      
+          .col-12
+            h2 Resultados de Búsqueda
+              table.table.table-bordered
+                thead
+                  tr
+                    th Nombre
+                    th DNI
+                    th Correo Electrónico
+                    th Acción
+                tbody(id="resultados")
          
   
-    form(action="/cargarPaciente", method="get")
-      button(type:'submit') Agregar nuevo
-    script(src="/script/buscarPaciente.js")
+            form(action="/cargarPaciente", method="get")
+              button(type:'submit') Agregar nuevo
+          script(src="/script/buscarPaciente.js")

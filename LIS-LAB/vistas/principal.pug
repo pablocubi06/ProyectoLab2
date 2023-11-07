@@ -10,6 +10,7 @@ html(lang="en")
     div.row
       div.col-7
         div.row
+          div.col-2
           div.col
             div.display-1 LIS
             div.display-1 Laboratorio de análisis clínicos
@@ -17,13 +18,13 @@ html(lang="en")
           div.col-4
           div.col-4
             section#usuario
-              form(action="" method="post")
+              form(action="/login" method="post")
                 div.form-group
                   label(for="username")
-                  input(type="text" class="form-control required" id="username" name="username" placeholder="Usuario")
+                  input(type="text" class="form-control required"  name="usuario" placeholder="Usuario" required)
                 div.form-group
                   label(for="password")
-                  input(type="password" class="form-control required"  id="password" name="password" placeholder="Contraseña")
+                  input(type="password" class="form-control required"  name="password" placeholder="Contraseña" required)
                 br
                 button(type="submit" class="btn btn-info") Iniciar sesión
       div.col-5.container

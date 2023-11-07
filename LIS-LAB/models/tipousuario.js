@@ -1,7 +1,7 @@
 import { Model,DataTypes } from 'sequelize';
 import { sequelize } from './conexion.js';
   class TipoUsuario extends Model {
-   
+    
   }
   TipoUsuario.init({
     id:{

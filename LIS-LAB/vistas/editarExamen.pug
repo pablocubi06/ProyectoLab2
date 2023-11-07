@@ -17,11 +17,11 @@ html(lang="en")
         figure
         form.row.g-3(action="/editar-examen", method="post")
           .col-4
-            label(for="inputAddress" class="form-label") Código
-            input(type="text" class="form-control" name="codigo" value= examen.codigo)
+            label(for="inputAddress" class="form-label") Codigo
+            input(type="text" class="form-control" name="codigo", value= examen.codigo)
           .col-8
             label(for="inputAddress" class="form-label") Nombre análisis
-            input(type="text" class="form-control" name="nombre_analisis" value= examen.nombre_analisis)
+            input(type="text" class="form-control" name="nombre_analisis" value= examen.nombre_analisis)  
           .col-md-6
             label(for="inputState" class="form-label") Tipo de Muestra
             select(id="inputState" class="form-select" name="tipo_muestra" value= examen.tipo_muestra)
@@ -38,5 +38,9 @@ html(lang="en")
             input(type="text" class="form-control" name="nota" value=examen.nota)
           .col-12
             button(type="submit" class="btn btn-info") Enviar
+            label#message(name="message" rows="4" cols="50")
           .col-12
-            button(type="submit" class="btn btn-info") Volver al menú  
+            form.row.g-3(action=`/volver-menu`, method="get")
+              button(type="submit" class="btn btn-info") Volver al menú  
+              script(src="/script/mensajeExamen.js")
+  

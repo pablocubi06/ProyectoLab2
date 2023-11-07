@@ -6,48 +6,49 @@ html
     title Carga de Pacientes
   body
     .row
-      .col-2
-      .col-4
+      .col-3
+      .col-6
         figure.text-center
           blockquote
             h3 Paciente.
           blockquote
           figcaption.blockquote-footer AGREGAR NUEVO <cite title="Source Title"> PACIENTE</cite>
         figure
+          .col-12 
+          form.row.g-3(action="/cargar-paciente", method="post")
+            .col-4
+              label(for="dni") DNI:
+              input(type="text", name="dni", required)
+            .col-8
+              label(for="apellido") Apellido:
+              input(type="text", name="apellido", required)
+            .col-8
+              label(for="nombre") Nombre:
+              input(type="text", name="nombre", required)
+            .col-4 
+              label(for="sexo") Sexo:
+              select(name="sexo")
+                option(value="masculino") Masculino
+                option(value="femenino") Femenino
+            .col-4
+              label(for="fecha_nac") Fecha de Nacimiento:
+                input(type="date", name="fecha_nac", required)
+            .col-4 
+              label(for="embarazada") Embarazada:
+              select(name="embarazada")
+                option(value="false") No
+                option(value="true") Si
+            .col-12
+              label(for="diagnostico") Diagnóstico:
+              input(type="text", name="diagnostico")
+            .col-12
+              label(for="patolog_prev") Patología Previa:
+              input(type="text", name="patolog_prev")
+            .col-6
+              label(for="email") Correo Electrónico:
+              input(type="email", name="email")
+            .col-6
+              label(for="telefono") Teléfono:
+              input(type="text", name="telefono")
 
-    form.row.g-3(action="/cargar-paciente", method="post")
-      label(for="dni") DNI:
-      input(type="text", name="dni", required)
-
-      label(for="apellido") Apellido:
-      input(type="text", name="apellido", required)
-
-      label(for="nombre") Nombre:
-      input(type="text", name="nombre", required)
-
-      label(for="sexo") Sexo:
-      select(name="sexo")
-        option(value="masculino") Masculino
-        option(value="femenino") Femenino
-
-      label(for="fecha_nac") Fecha de Nacimiento:
-      input(type="date", name="fecha_nac", required)
-
-      label(for="embarazada") Embarazada:
-      select(name="embarazada")
-        option(value="false") No
-        option(value="true") Si
-
-      label(for="diagnostico") Diagnóstico:
-      input(type="text", name="diagnostico")
-
-      label(for="patolog_prev") Patología Previa:
-      input(type="text", name="patolog_prev")
-
-      label(for="email") Correo Electrónico:
-      input(type="email", name="email")
-
-      label(for="telefono") Teléfono:
-      input(type="text", name="telefono")
-
-      button(type="submit") Cargar Paciente
+            button(type="submit") Cargar Paciente

@@ -7,7 +7,8 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title menu
   body(background="/images/bioquimica-1920x1280.jpg")
-    
+    block content
+      h3(class="nombre" value= user.usuario) Nombre: 
     .card(style="width: 18rem;")
       .card-header ORDENES
       ul.list-group.list-group-flush
@@ -28,4 +29,12 @@ html(lang="en")
           a(href="/determinaciones") Determinaciones
         li.list-group-item
           a(href="/valoresDeReferencia") Enlazar Valores de referencia
+        .card(style="width: 18rem;")
+      .card-header USUARIOS
+      ul.list-group.list-group-flush
+        li.list-group-item
+          a(href="/usuario") Nuevo usuario
+        li.list-group-item
+          a(href=`/editar-pass/${user.id}`) Editar contraseña
+        
         

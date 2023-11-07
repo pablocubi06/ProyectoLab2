@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import session  from 'express-session';
 const router = Router();
 import { Orden } from '../models/orden.js';
 import { TipoUsuario } from '../models/tipousuario.js';
@@ -12,7 +13,7 @@ import path from 'path';
 import { render } from 'pug';
 import { Paciente } from '../models/paciente.js';
 import { where } from 'sequelize';
-
+import bcrypt from "bcrypt";
 
 app.set('view engine', 'pug');
 app.set('views', './vistas');
@@ -22,7 +23,7 @@ app.use(express.static('public'));
 
 
 app.get('/', (req, res) => {
-  res.render('menu')
+  res.render('principal')
 })
 app.get('/orden', (req, res) => {
   res.render('orden');
@@ -225,9 +226,7 @@ const getExamenesData = (req, res, next) => {
 };
 
 
-app.get('/determinacion', async (req, res) => {
-  res.render("determinacion");
-});
+
 app.get('/api/examenes',async(req,res)=>{
   try {
     const examenes = await Examen.findAll({
@@ -255,6 +254,147 @@ app.post('/buscar-determinacion', async (req, res) => {
 
   
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/usuario', (req, res) => {
+
+  res.render('usuario')
+});
+
+
+
+app.post("/cargar-usuario", async (req, res) => {
+  
+  if (!(req.body.usuario && req.body.password)) {
+  return res.status(400).send({ error: "Datos no tienen formato apropiado" });
+  }
+    try {
+      // generar salt para hashear el password
+  const salt = await bcrypt.genSalt(10);
+
+  // hasheamos el password con salt anexado
+  const hash = await bcrypt.hash(req.body.password, salt);
+
+  // Creamos un nuevo usuario con la contraseña hasheada
+  const nuevoUsuario = {
+    usuario: req.body.usuario,
+    password: hash,
+    rol: req.body.rol
+    
+  };
+
+  // Creando un nuevo usuario
+  const user = TipoUsuario.create(nuevoUsuario);
+
+  //user.save().then((doc) => res.status(201).send(doc));
+    } catch (error) {
+      
+    console.error('Error al cargar usuario:', error);
+    res.redirect('/error'); // Página de error en caso de problemas
+    }
+
+  
+  });
+
+app.post("/login", async (req, res) => {
+  const datos = {
+    usuario: req.body.usuario,
+    password: req.body.password
+  };
+
+    const user = await TipoUsuario.findOne( {where: { usuario: datos.usuario }});
+   
+    if (user) {
+    // compara password del usuario con password hasheado en la BD
+    
+    const validPassword = await bcrypt.compare(datos.password, user.password);
+    console.log(validPassword);
+    console.log(user.password);
+    if (validPassword) {
+     
+      res.render('menu', {user});
+      
+    //configurar la session para no autenticar en cada requerimiento
+      
+    //req.session.usuario= datos.usuario;
+    //req.session.rol = datos.rol;
+    //res.send(`haz iniciado sesion como ${req.session.usuario}`);
+    } else {
+    res.status(400).json({ error: "Password Inválido" });
+    res.render('principal')
+    }
+    } else {
+    res.status(401).json({ error: "El usuario no existe" });
+    res.render('principal');
+    }
+  });   
+
+  app.use(session({
+    secret: 'secret',
+    resave:true,
+    saveUninitialized: true
+  }))
+  
+app.get(`/editar-pass/:id`, async (req, res) => {
+  const dato = req.params.id;
+  console.log(dato)
+  const user = await TipoUsuario.findByPk(dato);
+  //console.log(examen.nombre_analisis)
+    res.render('cambiarPassword', {user})
+});
+
+app.post(`/editar-pass`, async (req, res) => {
+
+    // generar salt para hashear el password
+const salt = await bcrypt.genSalt(10);
+
+const hash = await bcrypt.hash(req.body.password, salt);
+   
+   let  usuario= req.body.usuario;
+   const password = hash;
+   TipoUsuario.update(password,  {where: { usuario: usuario }})
+  
+    .then(() => {
+      let user = TipoUsuario.findOne( {where: { usuario: usuario }});
+      res.render('menu', {user})
+    })
+    .catch(error => {
+      console.error('Error al actualizar el usuario:', error);
+
+    });
+
+});  
+
 
 
 app.listen(3030, () => { console.log("corriendo") });
