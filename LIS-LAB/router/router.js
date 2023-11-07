@@ -13,9 +13,10 @@ import { render } from 'pug';
 import { Paciente } from '../models/paciente.js';
 import { where } from 'sequelize';
 
+
 app.set('view engine', 'pug');
 app.set('views', './vistas');
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
@@ -95,7 +96,19 @@ app.post('/cargar-paciente', async (req, res) => {
   }
 });
 
+app.post('/cargarOrden',async(rep,res)=>{
+  const fechaCreacion = req.body.fechaInput;
+  const fechaEntrega = req.body.entrega;
+  const idExamen =''
+  
+  const idPaciente=req.body.dni;
+  const muestra = true
+  const estado = "Esperando Toma de muestra";
+  await Orden.create({
+    idPaciente,idExamen,muestra,fechaCreacion,fechaEntrega,estado
+  })
 
+})
 // Ruta para procesar el formulario de edición (POST)
 app.post('/guardar-edicion', (req, res) => {
   const pacienteId = req.body.dni;
@@ -222,7 +235,7 @@ app.get('/api/examenes',async(req,res)=>{
         eliminado:false
       }
     }); 
-
+    console.log(examenes)
     res.json(examenes); 
   } catch (error) {
     console.error('Error al obtener datos de personas:', error);

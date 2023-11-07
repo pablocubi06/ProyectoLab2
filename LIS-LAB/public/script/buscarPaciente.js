@@ -63,7 +63,7 @@ function llenarTabla(resultados) {
     const botonEditar = document.createElement('button');
     botonEditar.textContent = 'Editar';
     botonEditar.addEventListener('click', () => {
-      // Aquí puedes redirigir al usuario a la página de edición
+      
       window.location.href = `/editar/${persona.dni}`;
     });
     const botonCargar = document.createElement('button');
